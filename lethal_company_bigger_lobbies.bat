@@ -1,4 +1,4 @@
-:: If you have any questions feel free to ask Nico or DM him on Twitter @RydanTweets or Discord @rydan
+:: Feel free to ask Nico on Discord @rydan or Twitter @RydanTweets if you have any questions :)
 
 :: DO NOT TOUCH ANYTHING BELOW!!!
 :: DO NOT TOUCH ANYTHING BELOW!!!
@@ -12,13 +12,13 @@ IF %ERRORLEVEL% EQU 0 GOTO adminFailsafe
 
 SET "ModsDirectoryName=Lethal_Company_Downloads"
 
-SET "v_BepInEx=5.4.22.0"
+SET "v_BepInEx=5.4.22"
 SET "dl_BepInEx=https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip"
 
 SET "v_LethalCompanyAPI=1.4.0"
 SET "dl_LethalCompanyAPI=https://gcdn.thunderstore.io/live/repository/packages/2018-LC_API-1.4.0.zip"
 
-SET "v_BiggerLobby=2.2.60"
+SET "v_BiggerLobby=2.2.6"
 SET "dl_BiggerLobby=https://gcdn.thunderstore.io/live/repository/packages/bizzlemip-BiggerLobby-2.2.60.zip"
 
 ECHO This might take a second or two, please leave this window open...
@@ -61,55 +61,50 @@ IF EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\change
 IF EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\doorstop_config.ini" DEL /S /Q "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\doorstop_config.ini"
 IF EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\winhttp.dll" DEL /S /Q "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\winhttp.dll"
 
-ECHO Downloading BepInEx Modding Framework v%v_BepInEx%, please wait...
 ECHO:
-:: Download the BepInEx Modding Framework zip archive
+ECHO Downloading BepInEx modding framework v%v_BepInEx% ...
+ECHO:
+:: Download the BepInEx modding framework zip archive
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%dl_BepInEx%', '%CD%\%ModsDirectoryName%\BepInEx_Modding_Framework_v%v_BepInEx%.zip')"
-:: Exit if the BepInEx Modding Framework could not be downloaded
+:: Exit if the BepInEx modding framework could not be downloaded
 IF NOT EXIST "%CD%\%ModsDirectoryName%\BepInEx_Modding_Framework_v%v_BepInEx%.zip" GOTO bepInExNotDownloaded
 
-ECHO Downloading Lethal Company API v%v_LethalCompanyAPI%, please wait...
+ECHO Downloading Lethal Company API v%v_LethalCompanyAPI% ...
 ECHO:
 :: Download the Lethal Company API zip archive
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%dl_LethalCompanyAPI%', '%CD%\%ModsDirectoryName%\Lethal_Company_API_v%v_LethalCompanyAPI%.zip')"
 :: Exit if the Lethal Company API could not be downloaded
 IF NOT EXIST "%CD%\%ModsDirectoryName%\Lethal_Company_API_v%v_LethalCompanyAPI%.zip" GOTO lethalCompanyApiNotDownloaded
 
-ECHO Downloading BiggerLobby mod v%v_BiggerLobby%, please wait...
+ECHO Downloading BiggerLobby v%v_BiggerLobby% ...
 ECHO:
-:: Download the BiggerLobby mod zip archive
+:: Download the BiggerLobby zip archive
 powershell -Command "(New-Object Net.WebClient).DownloadFile('%dl_BiggerLobby%', '%CD%\%ModsDirectoryName%\BiggerLobby_v%v_BiggerLobby%.zip')"
-:: Exit if the BiggerLobby mod could not be downloaded
+:: Exit if the BiggerLobby could not be downloaded
 IF NOT EXIST "%CD%\%ModsDirectoryName%\BiggerLobby_v%v_BiggerLobby%.zip" GOTO biggerLobbyNotDownloaded
 
-ECHO Unpacking BepInEx Modding Framework v%v_BepInEx%, please wait...
+ECHO Unpacking BepInEx modding framework v%v_BepInEx% ...
 ECHO:
 powershell Expand-Archive -LiteralPath "'%CD%\%ModsDirectoryName%\BepInEx_Modding_Framework_v%v_BepInEx%.zip'" -DestinationPath "'%LethalCompanyInstallationPath%\steamapps\common\Lethal Company'"
 
-ECHO Unpacking Lethal Company API v%v_LethalCompanyAPI%, please wait...
+ECHO Unpacking Lethal Company API v%v_LethalCompanyAPI% ...
 ECHO:
 powershell Expand-Archive -LiteralPath "'%CD%\%ModsDirectoryName%\Lethal_Company_API_v%v_LethalCompanyAPI%.zip'" -DestinationPath "'%CD%\%ModsDirectoryName%\Lethal_Company_API_v%v_LethalCompanyAPI%\'"
-ROBOCOPY "%CD%\%ModsDirectoryName%\Lethal_Company_API_v%v_LethalCompanyAPI%\BepInEx\plugins" "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins" /E
+ROBOCOPY "%CD%\%ModsDirectoryName%\Lethal_Company_API_v%v_LethalCompanyAPI%\BepInEx\plugins" "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins" /E /NFL /NDL /NJH /NJS /nc /ns /np > NUL
 
-ECHO Unpacking BiggerLobby mod v%v_BiggerLobby%, please wait...
+ECHO Unpacking BiggerLobby v%v_BiggerLobby% ...
 ECHO:
 powershell Expand-Archive -LiteralPath "'%CD%\%ModsDirectoryName%\BiggerLobby_v%v_BiggerLobby%.zip'" -DestinationPath "'%CD%\%ModsDirectoryName%\BiggerLobby_v%v_BiggerLobby%\'"
-ROBOCOPY "%CD%\%ModsDirectoryName%\BiggerLobby_v%v_BiggerLobby%\BepInEx\plugins" "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins" /E
+ROBOCOPY "%CD%\%ModsDirectoryName%\BiggerLobby_v%v_BiggerLobby%\BepInEx\plugins" "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins" /E /NFL /NDL /NJH /NJS /nc /ns /np > NUL
 
 ECHO:
+ECHO SUCCESS! Lethal Company was patched, and you can close this window now.
 ECHO:
+ECHO --------------------------------------------------------------------------------------------
 ECHO:
-ECHO ------------------------------------------------------------------------------------------
+ECHO Feel free to ask Nico on Discord @rydan or Twitter @RydanTweets if you have any questions :)
 ECHO:
-ECHO If you have any questions feel free to ask Nico or DM him on Twitter @RydanTweets or Discord @rydan
-ECHO:
-ECHO ------------------------------------------------------------------------------------------
-ECHO:
-ECHO:
-ECHO Successfully patched Lethal Company!
-ECHO:
-ECHO:
-ECHO This window can now be closed!
+ECHO --------------------------------------------------------------------------------------------
 ECHO:
 PAUSE
 EXIT /B
@@ -130,7 +125,7 @@ EXIT /B
 
 :bepInExNotDownloaded
 ECHO:
-ECHO Error: The BepInEx Modding Framework v%v_BepInEx% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: The BepInEx modding framework v%v_BepInEx% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
@@ -144,7 +139,7 @@ EXIT /B
 
 :biggerLobbyNotDownloaded
 ECHO:
-ECHO Error: The BiggerLobby mod v%v_BiggerLobby% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: The BiggerLobby v%v_BiggerLobby% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
