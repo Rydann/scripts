@@ -15,8 +15,8 @@ SET "ModsDirectoryName=Lethal_Company_Downloads"
 SET "v_BepInEx=5.4.22"
 SET "dl_BepInEx=https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip"
 
-SET "v_LethalCompanyAPI=1.4.0"
-SET "dl_LethalCompanyAPI=https://gcdn.thunderstore.io/live/repository/packages/2018-LC_API-1.4.0.zip"
+SET "v_LethalCompanyAPI=1.4.2"
+SET "dl_LethalCompanyAPI=https://gcdn.thunderstore.io/live/repository/packages/2018-LC_API-1.4.2.zip"
 
 SET "v_BiggerLobby=2.2.6"
 SET "dl_BiggerLobby=https://gcdn.thunderstore.io/live/repository/packages/bizzlemip-BiggerLobby-2.2.60.zip"
@@ -27,8 +27,8 @@ SET "dl_MoreSuits=https://thunderstore.io/package/download/x753/More_Suits/1.3.2
 SET "v_AdditionalSuits=1.0.2"
 SET "dl_AdditionalSuits=https://thunderstore.io/package/download/AlexCodesGames/AdditionalSuits/1.0.2/"
 
-SET "v_ShipLobby=1.0.1"
-SET "dl_ShipLobby=https://thunderstore.io/package/download/tinyhoot/ShipLobby/1.0.1/"
+SET "v_ShipLobby=1.0.2"
+SET "dl_ShipLobby=https://thunderstore.io/package/download/tinyhoot/ShipLobby/1.0.2/"
 
 SET "v_ReservedItemSlotCore=1.2.9"
 SET "dl_ReservedItemSlotCore=https://thunderstore.io/package/download/FlipMods/ReservedItemSlotCore/1.2.9/"
@@ -41,6 +41,9 @@ SET "dl_ReservedWalkieSlot=https://thunderstore.io/package/download/FlipMods/Res
 
 SET "v_SkipToMultiplayerMenu=1.0.0"
 SET "dl_SkipToMultiplayerMenu=https://thunderstore.io/package/download/FlipMods/SkipToMultiplayerMenu/1.0.0/"
+
+SET "v_HelmetCameras=2.0.1"
+SET "dl_HelmetCameras=https://thunderstore.io/package/download/RickArg/Helmet_Cameras/2.0.1/"
 
 ECHO This might take a second or two, please leave this window open!
 ECHO:
@@ -155,8 +158,18 @@ powershell -Command "(New-Object Net.WebClient).DownloadFile('%dl_SkipToMultipla
 :: Exit if the SkipToMultiplayerMenu could not be downloaded
 IF NOT EXIST "%CD%\%ModsDirectoryName%\SkipToMultiplayerMenu_v%v_SkipToMultiplayerMenu%.zip" GOTO skipToMultiplayerMenuNotDownloaded
 
+ECHO  Downloading HelmetCameras v%v_HelmetCameras% ...
+:: Download the HelmetCameras zip archive
+powershell -Command "(New-Object Net.WebClient).DownloadFile('%dl_HelmetCameras%', '%CD%\%ModsDirectoryName%\HelmetCameras_v%v_HelmetCameras%.zip')"
+:: Exit if the HelmetCameras could not be downloaded
+IF NOT EXIST "%CD%\%ModsDirectoryName%\HelmetCameras_v%v_HelmetCameras%.zip" GOTO helmetCamerasNotDownloaded
+
 ECHO:
 ECHO ^>^> Moving all files to the correct places...
+
+IF NOT EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx" MKDIR "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx"
+IF NOT EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins" MKDIR "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins"
+IF NOT EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\config" MKDIR "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\config"
 
 ECHO  Unpacking BepInEx modding framework v%v_BepInEx% ...
 powershell Expand-Archive -LiteralPath "'%CD%\%ModsDirectoryName%\BepInEx_Modding_Framework_v%v_BepInEx%.zip'" -DestinationPath "'%LethalCompanyInstallationPath%\steamapps\common\Lethal Company'"
@@ -196,6 +209,12 @@ ROBOCOPY "%CD%\%ModsDirectoryName%\ReservedWalkieSlot_v%v_ReservedWalkieSlot%\Be
 ECHO  Unpacking SkipToMultiplayerMenu v%v_SkipToMultiplayerMenu% ...
 powershell Expand-Archive -LiteralPath "'%CD%\%ModsDirectoryName%\SkipToMultiplayerMenu_v%v_SkipToMultiplayerMenu%.zip'" -DestinationPath "'%CD%\%ModsDirectoryName%\SkipToMultiplayerMenu_v%v_SkipToMultiplayerMenu%\'"
 ROBOCOPY "%CD%\%ModsDirectoryName%\SkipToMultiplayerMenu_v%v_SkipToMultiplayerMenu%\BepInEx\plugins" "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins" /NFL /NDL /NJH /NJS /nc /ns /np > NUL
+
+ECHO  Unpacking HelmetCameras v%v_HelmetCameras% ...
+powershell Expand-Archive -LiteralPath "'%CD%\%ModsDirectoryName%\HelmetCameras_v%v_HelmetCameras%.zip'" -DestinationPath "'%CD%\%ModsDirectoryName%\HelmetCameras_v%v_HelmetCameras%\'"
+ROBOCOPY "%CD%\%ModsDirectoryName%\HelmetCameras_v%v_HelmetCameras%\BepInEx\plugins" "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\plugins" /NFL /NDL /NJH /NJS /nc /ns /np > NUL
+::ROBOCOPY "%CD%\%ModsDirectoryName%\HelmetCameras_v%v_HelmetCameras%\BepInEx\config" "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\config" /NFL /NDL /NJH /NJS /nc /ns /np > NUL
+(ECHO ## Settings file was created by plugin Helmet_Cameras v2.0.1&& ECHO ## Plugin GUID: RickArg.lethalcompany.helmetcameras&& ECHO.&& ECHO [MONITOR QUALITY]&& ECHO.&& ECHO ## High Quality mode. 0 - vanilla (48x48^), 1 - vanilla+ (128x128^), 2 - mid quality (256x256^), 3 - high quality (512x512^), 4 - Very High Quality (1024x1024^) I left it here, because maybe someone need it :^)&& ECHO # Setting type: Int32&& ECHO # Default value: 0&& ECHO monitorResolution = 3&& ECHO.&& ECHO ## Render distance for helmet camera. You can play with number to increase your performance.&& ECHO # Setting type: Int32&& ECHO # Default value: 70&& ECHO renderDistance = 70&& ECHO.) > "%LethalCompanyInstallationPath%/steamapps/common/Lethal Company/BepInEx/config/RickArg.lethalcompany.helmetcameras.cfg"
 
 ECHO:
 ECHO ==^> SUCCESS!
@@ -244,56 +263,63 @@ EXIT /B
 
 :biggerLobbyNotDownloaded
 ECHO:
-ECHO Error: The BiggerLobby v%v_BiggerLobby% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: BiggerLobby v%v_BiggerLobby% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
 
 :moreSuitsNotDownloaded
 ECHO:
-ECHO Error: The MoreSuits v%v_MoreSuits% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: MoreSuits v%v_MoreSuits% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
 
 :additionalSuitsNotDownloaded
 ECHO:
-ECHO Error: The AdditionalSuits v%v_AdditionalSuits% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: AdditionalSuits v%v_AdditionalSuits% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
 
 :shipLobbyNotDownloaded
 ECHO:
-ECHO Error: The ShipLobby v%v_ShipLobby% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: ShipLobby v%v_ShipLobby% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
 
 :reservedItemSlotCoreNotDownloaded
 ECHO:
-ECHO Error: The ReservedItemSlotCore v%v_ReservedItemSlotCore% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: ReservedItemSlotCore v%v_ReservedItemSlotCore% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
 
 :reservedFlashlightSlotNotDownloaded
 ECHO:
-ECHO Error: The ReservedFlashlightSlot v%v_ReservedFlashlightSlot% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: ReservedFlashlightSlot v%v_ReservedFlashlightSlot% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
 
 :reservedWalkieSlotNotDownloaded
 ECHO:
-ECHO Error: The ReservedWalkieSlot v%v_ReservedWalkieSlot% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: ReservedWalkieSlot v%v_ReservedWalkieSlot% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
 
 :skipToMultiplayerMenuNotDownloaded
 ECHO:
-ECHO Error: The SkipToMultiplayerMenu v%v_SkipToMultiplayerMenu% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO Error: SkipToMultiplayerMenu v%v_SkipToMultiplayerMenu% could not be downloaded, please try again! If this problem persists please let Nico know :)
+ECHO:
+PAUSE
+EXIT /B
+
+:helmetCamerasNotDownloaded
+ECHO:
+ECHO Error: HelmetCameras v%v_HelmetCameras% could not be downloaded, please try again! If this problem persists please let Nico know :)
 ECHO:
 PAUSE
 EXIT /B
