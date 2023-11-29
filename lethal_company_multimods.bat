@@ -18,8 +18,8 @@ SET "dl_BepInEx=https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/Bep
 SET "v_LethalCompanyAPI=1.4.2"
 SET "dl_LethalCompanyAPI=https://gcdn.thunderstore.io/live/repository/packages/2018-LC_API-1.4.2.zip"
 
-SET "v_BiggerLobby=2.2.6"
-SET "dl_BiggerLobby=https://gcdn.thunderstore.io/live/repository/packages/bizzlemip-BiggerLobby-2.2.60.zip"
+SET "v_BiggerLobby=2.2.71"
+SET "dl_BiggerLobby=https://gcdn.thunderstore.io/live/repository/packages/bizzlemip-BiggerLobby-2.2.71.zip"
 
 SET "v_MoreSuits=1.3.2"
 SET "dl_MoreSuits=https://thunderstore.io/package/download/x753/More_Suits/1.3.2/"

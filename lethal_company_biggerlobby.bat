@@ -15,11 +15,11 @@ SET "ModsDirectoryName=Lethal_Company_Downloads"
 SET "v_BepInEx=5.4.22"
 SET "dl_BepInEx=https://github.com/BepInEx/BepInEx/releases/download/v5.4.22/BepInEx_x64_5.4.22.0.zip"
 
-SET "v_LethalCompanyAPI=1.4.0"
-SET "dl_LethalCompanyAPI=https://gcdn.thunderstore.io/live/repository/packages/2018-LC_API-1.4.0.zip"
+SET "v_LethalCompanyAPI=1.4.2"
+SET "dl_LethalCompanyAPI=https://gcdn.thunderstore.io/live/repository/packages/2018-LC_API-1.4.2.zip"
 
-SET "v_BiggerLobby=2.2.6"
-SET "dl_BiggerLobby=https://gcdn.thunderstore.io/live/repository/packages/bizzlemip-BiggerLobby-2.2.60.zip"
+SET "v_BiggerLobby=2.2.71"
+SET "dl_BiggerLobby=https://gcdn.thunderstore.io/live/repository/packages/bizzlemip-BiggerLobby-2.2.71.zip"
 
 ECHO This might take a second or two, please leave this window open!
 ECHO:
