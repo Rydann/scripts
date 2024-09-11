@@ -1,0 +1,17 @@
+{
+	"name": "YippeeHoarderTwo",
+    "config": {
+        "Settings:Music": {
+            "description": "Include All my Fellas song?",
+            "default": true
+        },
+        "Settings:Footsteps": {
+            "description": "Change footsteps?",
+            "default": true
+        },
+        "Settings:Voice": {
+            "description": "Include voicelines?",
+            "default": true
+        }
+    }
+}
