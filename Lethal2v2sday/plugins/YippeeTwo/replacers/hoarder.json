@@ -1,0 +1,158 @@
+{
+    "replacements": [
+        {
+            "matches": "AnimContainer:Voice:Angry",
+            "sounds": [
+                {
+                    "sound": "YippeeAngry.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Music",
+					"value": false
+					}
+                },
+                {
+                    "sound": "YippeeAllMyFellas.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Music",
+					"value": true
+					}
+                }
+            ]
+        },
+        {
+            "matches": "Voice:HoarderBugCry",
+            "sounds": [
+                {
+                    "sound": "YippeeDie.ogg"
+                }
+            ]
+        },
+        {
+            "matches": "YippeeScrapEater:SoundEffectsAudio:MinecraftEatSFX",
+            "sounds": [
+                {
+                    "sound": "ScrapEaterDrinkCola.ogg"
+                }
+            ]
+        },
+        {
+            "matches": "YippeeScrapEater:FlyAudio:Fly",
+            "sounds": [
+                {
+                    "sound": "ScrapEaterAllMyFellas.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Music",
+					"value": true
+					}
+                },
+                {
+                    "sound": "ScrapEaterFlyYippee.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Music",
+					"value": false
+					}
+                }
+            ]
+        },
+        {
+            "matches": [
+			    "HoarderBug:BugWalk1",
+				"HoarderBug:BugWalk2",
+				"HoarderBug:BugWalk3",
+				"HoarderBug:BugWalk4",
+			    "YippeeScrapEater:WalkAudio:BugWalk1",
+				"YippeeScrapEater:WalkAudio:BugWalk2",
+				"YippeeScrapEater:WalkAudio:BugWalk3",
+				"YippeeScrapEater:WalkAudio:BugWalk4"
+			],
+			"condition": {
+			"type": "config",
+			"config": "Settings:Footsteps",
+			"value": true
+			},
+            "sounds": [
+                {
+                    "sound": "YippeeStep1.ogg",
+					"weight": 1
+                },
+                {
+                    "sound": "YippeeStep2.ogg",
+					"weight": 1
+                },
+                {
+                    "sound": "YippeeStep3.ogg",
+					"weight": 1
+                },
+                {
+                    "sound": "YippeeStep4.ogg",
+					"weight": 1
+                }
+            ]
+        },
+        {
+            "matches": [
+			    "Voice:Chitter1",
+				"Voice:Chitter2",
+				"Voice:Chitter3",
+				"YippeeScrapEater:VoiceAudio:YippeeSFX"
+			],
+            "sounds": [
+                {
+                    "sound": "YippeeYippee.ogg",
+					"weight": 10
+                },
+                {
+                    "sound": "YippeeTalk1.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Voice",
+					"value": true
+					},
+					"weight": 1
+                },
+                {
+                    "sound": "YippeeTalk2.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Voice",
+					"value": true
+					},
+					"weight": 1
+                },
+                {
+                    "sound": "YippeeTalk3.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Voice",
+					"value": true
+					},
+					"weight": 1
+                },
+                {
+                    "sound": "YippeeTalk4.ogg",
+					"condition": {
+					"type": "config",
+					"config": "Settings:Voice",
+					"value": true
+					},
+					"weight": 1
+                }
+            ]
+        },
+        {
+            "matches": [
+			   "Voice:AngryScreech",
+			   "Voice:AngryScreech2"
+			],
+            "sounds": [
+                {
+                    "sound": "YippeeScreech.ogg"
+                }
+            ]
+        }
+    ]
+}

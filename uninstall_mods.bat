@@ -6,10 +6,13 @@
 
 @ECHO off
 
-ECHO Lethal Company mods uninstall script v1.0.0 (last updated on December 27th, 2023 at 3:03pm PT)
+SET "CurrentDir=%~DP0%"
+SET "ModsDirectoryName=UZGyW76rjvqyXPMaRk7R"
+
+ECHO [94mNico's Lethal Company Mods Uninstaller[0m
 ECHO:
 
-ECHO This might take a second or two, please leave this window open.
+ECHO [91mThis could take a minute, please leave this window open![0m
 ECHO:
 
 :: Find the Steam installation path
@@ -22,64 +25,70 @@ FOR /F "usebackq delims=" %%I IN (`
 `) DO SET SteamDirectoryPath=%%I
 
 :: Exit if Steam cannot be found
-IF NOT DEFINED SteamExecutablePath GOTO steamNotFound
-IF NOT DEFINED SteamDirectoryPath GOTO steamNotFound
+IF NOT DEFINED SteamExecutablePath GOTO gotoSteamNotFound
+IF NOT DEFINED SteamDirectoryPath GOTO gotoSteamNotFound
 
-:: Find the Lethal Company Steam installation path
+:: Find the game's Steam installation path
 FOR /F "usebackq delims=" %%I IN (`
 	powershell -c "$steamDirs=@(); foreach($line in Get-Content '%SteamDirectoryPath%/steamapps/libraryfolders.vdf') { if($line -match [regex] '""""path""""'){ $temp = $line -replace '\s+""""path""""\s+""""(.*)""""','$1'; $temp = $temp.replace('\\', '\'); $steamDirs += $temp; } } return $steamDirs"
 `) DO (
-	IF EXIST "%%I\steamapps\common\Lethal Company" SET LethalCompanyInstallationPath=%%I
+	IF EXIST "%%I\steamapps\common\Lethal Company" SET GameInstallationPath=%%I
 )
 
-:: Exit if the Lethal Company Steam installation path cannot be found
-IF NOT DEFINED LethalCompanyInstallationPath GOTO lethalCompanyNotFound
+:: Exit if the game's Steam installation path cannot be found
+IF NOT DEFINED GameInstallationPath GOTO gotoGameNotFound
 
-ECHO ^>^>^> Closing the game...
+ECHO [92m^>^>^> Making sure the game is closed...[0m
 
-:: Exit Lethal Company if it is running
+:: Exit the game if it is running
 taskkill /f /im "Lethal Company.exe" > NUL 2>&1
 
 :: Wait 2 seconds to make sure all related processes had time to exit
 TIMEOUT 2 > NUL
 
+:: Delete any old versions of the modded files under the current path (where this file is located)
+IF EXIST "%CurrentDir%%ModsDirectoryName%" @RD /S /Q "%CurrentDir%%ModsDirectoryName%\"
+
+:: Create a directory called "%ModsDirectoryName%" under the root path (the root path is wherever this .bat script file is located)
+IF NOT EXIST "%CurrentDir%%ModsDirectoryName%\" MKDIR "%CurrentDir%%ModsDirectoryName%"
+
 ECHO:
 
 :: Remove any old versions of the mods and framework
-ECHO ^>^>^> Removing all existing mod files...
-IF EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx" @RD /S /Q "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\BepInEx\"
-IF EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\changelog.txt" DEL /S /Q "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\changelog.txt"
-IF EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\doorstop_config.ini" DEL /S /Q "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\doorstop_config.ini"
-IF EXIST "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\winhttp.dll" DEL /S /Q "%LethalCompanyInstallationPath%\steamapps\common\Lethal Company\winhttp.dll"
+ECHO [92m^>^>^> Getting rid of all mod files...[0m
+IF EXIST "%GameInstallationPath%\steamapps\common\Lethal Company\BepInEx" @RD /S /Q "%GameInstallationPath%\steamapps\common\Lethal Company\BepInEx\"
+IF EXIST "%GameInstallationPath%\steamapps\common\Lethal Company\changelog.txt" DEL /S /Q "%GameInstallationPath%\steamapps\common\Lethal Company\changelog.txt"
+IF EXIST "%GameInstallationPath%\steamapps\common\Lethal Company\doorstop_config.ini" DEL /S /Q "%GameInstallationPath%\steamapps\common\Lethal Company\doorstop_config.ini"
+IF EXIST "%GameInstallationPath%\steamapps\common\Lethal Company\winhttp.dll" DEL /S /Q "%GameInstallationPath%\steamapps\common\Lethal Company\winhttp.dll"
 
 ECHO:
-ECHO ^>^>^> Done.
+ECHO [92m^>^>^> Removal complete![0m
+ECHO:
 
-ECHO:
 ECHO ###########################################################################
 ECHO ###########################################################################
-ECHO ###########################################################################
 ECHO:
-ECHO If you run into any issues, you can reach me here:
-ECHO - Discord: rydan
-ECHO - Twitter: @RydanTweets
+ECHO [101;93mYou may close this window and run the game via Steam now![0m
 ECHO:
+ECHO [94mIf you experience any issues you can reach me here![0m
 ECHO:
-ECHO ==^> SUCCESS^! YOU CAN CLOSE THIS WINDOW AND START THE DEFAULT GAME VIA STEAM NOW!
+ECHO [94m- Discord:[0m rydan
+ECHO [94m- Twitter:[0m @RydanTweets
+ECHO:
 ECHO:
 PAUSE
 EXIT /B
 
-:steamNotFound
+:gotoSteamNotFound
 ECHO:
-ECHO ERROR: Steam could not be found!
+ECHO [91mERROR: Steam could not be found! There is nothing to uninstall.[0m
 ECHO:
 PAUSE
 EXIT /B
 
-:lethalCompanyNotFound
+:gotoGameNotFound
 ECHO:
-ECHO ERROR: Lethal Company could not be found! It looks like you don't have it installed.
+ECHO [91mERROR: Game could not be found! There is nothing to uninstall.[0m
 ECHO:
 PAUSE
 EXIT /B
